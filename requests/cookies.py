@@ -453,6 +453,7 @@ def create_cookie(name, value, **kwargs):
         'path': '/',
         'secure': False,
         'expires': None,
+        'samesite': None,
         'discard': True,
         'comment': None,
         'comment_url': None,
@@ -466,6 +467,7 @@ def create_cookie(name, value, **kwargs):
         raise TypeError(err % list(badargs))
 
     result.update(kwargs)
+
     result['port_specified'] = bool(result['port'])
     result['domain_specified'] = bool(result['domain'])
     result['domain_initial_dot'] = result['domain'].startswith('.')
@@ -500,6 +502,7 @@ def morsel_to_cookie(morsel):
         rest={'HttpOnly': morsel['httponly']},
         rfc2109=False,
         secure=bool(morsel['secure']),
+        samesite=morsel['samesite'],
         value=morsel.value,
         version=morsel['version'] or 0,
     )

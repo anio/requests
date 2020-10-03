@@ -1049,7 +1049,7 @@ class TestRequests:
         value = 'some_value'
         secure = True
         domain = 'test.com'
-        rest = {'HttpOnly': True}
+        rest = {'HttpOnly': True, 'samesite': 'Lax'}
 
         jar = requests.cookies.RequestsCookieJar()
         jar.set(key, value, secure=secure, domain=domain, rest=rest)
@@ -1061,6 +1061,7 @@ class TestRequests:
         assert cookie.secure == secure
         assert cookie.domain == domain
         assert cookie._rest['HttpOnly'] == rest['HttpOnly']
+        assert cookie._rest['samesite'] == rest['samesite']
 
     def test_cookie_as_dict_keeps_len(self):
         key = 'some_cookie'
